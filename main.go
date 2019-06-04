@@ -1,21 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"os"
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/hero"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "200")
-}
- 
 func main() {
-	http.HandleFunc("/", handler)
-	var port = os.Getenv("PORT")
-	if port == "" {
-		// no env variable for port
-		port = "8080"
-	}
-	http.ListenAndServe(":"+port, nil)
+    app := iris.Default()
+    app.Get("/ping", func(ctx iris.Context) {
+        ctx.JSON(iris.Map{
+            "message": "pong",
+        })
+    })
+    // listen and serve on http://0.0.0.0:8080.
+    app.Run(iris.Addr(":8080"))
 }
