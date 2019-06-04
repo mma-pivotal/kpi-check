@@ -1,0 +1,8 @@
+---
+applications:
+- name: kpi-check
+  memory: 200m
+  disk: 10m
+  env:
+    slack_url: "https://hooks.slack.com/services/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"
+    kpi_url: "https://docs.pivotal.io/pivotalcf/2-5/monitoring/kpi.html"
