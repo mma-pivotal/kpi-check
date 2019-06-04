@@ -1,14 +1,19 @@
-# CF Sample App Go
+# PCF KPI DOC Check
 
-A sample [Go](https://golang.org/) application to deploy to Cloud Foundry which works out of the box.
+A simple app which check whether there is any KPI change in PCF's official website. 
 
-## Run locally
+## Frontend
 
-1. Install [Go](https://golang.org/doc/install)
-1. Run `go run main.go`
-1. Visit <http://localhost:8080>
+A empty go webapp which only returns 200 at this moment.
+I am planning to add more functionality so that the frontend can take user input to support more pages / frequency of job runs / send messages to multiple channels.
 
-## Run in the cloud
+## Backend
 
-1. Run `cf push my-go-app -m 64M --random-route`
-1. Visit the given URL
+A simple bash script which download the latest KPI page and `diff` it with the last saved page.
+POST a message specified in the environment variable $slack_url.
+For now this job runs at 9am every Monday.
+
+## Environment variables.
+
+`slack_url` - The incoming web hook for slack.
+`kpi_url` - The KPI doc that is being checked.
