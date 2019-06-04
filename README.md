@@ -15,5 +15,5 @@ For now this job runs at 9am every Monday.
 
 ## Environment variables.
 
-`slack_url` - The incoming web hook for slack.
+`slack_url` - The incoming web hook for slack.  
 `kpi_url` - The KPI doc that is being checked.
