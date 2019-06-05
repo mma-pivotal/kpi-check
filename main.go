@@ -39,7 +39,7 @@ func main() {
 		}
 	})
 
-	app.Get("/delete/{name}", func(ctx iris.Context) { // get an ENV variable
+	app.Get("/delete/{name}", func(ctx iris.Context) { // delete an ENV variable
 		name := ctx.Params().Get("name")
 
 		if err := os.Unsetenv(name); err != nil {
