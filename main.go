@@ -63,7 +63,7 @@ func main() {
 				ctx.Writef("value: %s \n", kv.Value)
 				return
 			}
-			ctx.Writef("ENV has been set. \n key: %s \n value: %s \n", kv.Key, kv.Value)
+			ctx.Writef("Env variable has been set. \n key: %s \n value: %s \n", kv.Key, kv.Value)
 		}
 	})
 
