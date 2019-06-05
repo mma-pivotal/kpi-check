@@ -54,6 +54,7 @@ func main() {
 		viper.SetConfigName("config") // name of config file (without extension)
 		viper.AddConfigPath(".")
 		viper.Set(name, "")
+		viper.WriteConfig()
 		ctx.Writef("%s has been removed", name)
 	})
 
@@ -68,6 +69,7 @@ func main() {
 			viper.SetConfigName("config") // name of config file (without extension)
 			viper.AddConfigPath(".")
 			viper.Set(kv.Key, kv.Value)
+			viper.WriteConfig()
 			ctx.Writef("Variable has been set. \n key: %s \n value: %s \n", kv.Key, kv.Value)
 		}
 	})
