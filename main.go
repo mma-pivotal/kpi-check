@@ -50,6 +50,8 @@ func main() {
             err := os.Setenv(kv.Key, kv.Value)
             if err != nil {
                 ctx.Writef("%s",err.Error())
+                ctx.Writef("key: %s \n", kv.Key)
+                ctx.Writef("value: %s \n", kv.Value)
                 return 
             }
             ctx.Writef("key: %s \n", kv.Key)
