@@ -39,7 +39,7 @@ func main() {
 			return
 		} // Find and read the config file
 
-		key := viper.GetString("name")
+		key := viper.GetString(name)
 
 		if len(key) == 0 {
 			ctx.Writef("Variable not set")
