@@ -6,6 +6,7 @@ import (
 	//    "fmt"
 	//    "strings"
 	"github.com/kataras/iris"
+	"github.com/spf13/viper"
 	//	"github.com/kataras/iris/hero"
 )
 
@@ -30,10 +31,18 @@ func main() {
 
 	app.Get("/get/{name}", func(ctx iris.Context) { // get an ENV variable
 		name := ctx.Params().Get("name")
-		key := os.Getenv(name)
+
+		viper.SetConfigName("config") // name of config file (without extension)
+		viper.AddConfigPath(".")      // optionally look for config in the working directory
+		if err := viper.ReadInConfig(); err != nil {
+			ctx.WriteString(err.Error())
+			return
+		} // Find and read the config file
+
+		key := viper.GetString("name")
 
 		if len(key) == 0 {
-			ctx.Writef("Env variable not set")
+			ctx.Writef("Variable not set")
 		} else {
 			ctx.Writef("%s=%s", name, key)
 		}
@@ -42,11 +51,9 @@ func main() {
 	app.Get("/delete/{name}", func(ctx iris.Context) { // delete an ENV variable
 		name := ctx.Params().Get("name")
 
-		if err := os.Unsetenv(name); err != nil {
-			ctx.StatusCode(iris.StatusBadRequest)
-			ctx.WriteString(err.Error())
-			return
-		}
+		viper.SetConfigName("config") // name of config file (without extension)
+		viper.AddConfigPath(".")
+		viper.Set(name, "")
 		ctx.Writef("%s has been removed", name)
 	})
 
@@ -58,12 +65,10 @@ func main() {
 			ctx.WriteString(err.Error())
 			return
 		} else {
-			err := os.Setenv(kv.Key, kv.Value)
-			if err != nil {
-				ctx.Writef("value: %s \n", kv.Value)
-				return
-			}
-			ctx.Writef("Env variable has been set. \n key: %s \n value: %s \n", kv.Key, kv.Value)
+			viper.SetConfigName("config") // name of config file (without extension)
+			viper.AddConfigPath(".")
+			viper.Set(kv.Key, kv.Value)
+			ctx.Writef("Variable has been set. \n key: %s \n value: %s \n", kv.Key, kv.Value)
 		}
 	})
 
