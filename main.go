@@ -48,12 +48,18 @@ func main() {
 		}
 	})
 
+	app.Get("/diff", func(ctx iris.Context) { // show the diff between last and latest doc, TODO
+
+		ctx.Writef("WIP")
+
+	})
+
 	app.Get("/delete/{name}", func(ctx iris.Context) { // delete an ENV variable
 		name := ctx.Params().Get("name")
 
 		viper.SetConfigName("config") // name of config file (without extension)
 		viper.AddConfigPath(".")
-		viper.Set(name, "")
+		delete(viper.Get(name).(map[string]interface{}), name)
 		viper.WriteConfig()
 		ctx.Writef("%s has been removed", name)
 	})
