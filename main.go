@@ -48,10 +48,8 @@ func main() {
 		}
 	})
 
-	app.Get("/diff", func(ctx iris.Context) { // show the diff between last and latest doc, TODO
-
-		ctx.Writef("WIP")
-
+	app.Get("/diff", func(ctx iris.Context) {
+		ctx.ServeFile("diff.txt",false)
 	})
 
 	app.Get("/delete/{name}", func(ctx iris.Context) { // delete an ENV variable
